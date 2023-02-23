@@ -27,29 +27,32 @@ import java.util.Optional;
 
 public class Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
-    private static Book bookSearch;
+    private static User userProfile = new User("", "", "", "");
 
 
     public Server(String host, int port) throws IOException, SQLException {
         super(host, port);
         registerGet("/", this::booksHandler);
-        registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
-        registerGet("/book", this::bookHandler);
+        registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/failed", this::failedHandler);
         registerGet("/success", this::successHandler);
+        registerGet("/failed2", this::failedLoginHandler);
+        registerGet("/success2", this::successLoginHandler);
+        registerGet("/users", this::usersHandler);
         registerGet("/user", this::userHandler);
         registerGet("/accounts", this::accountsHandler);
-//        registerGet("/login",this::searchGet);
-//        registerPost("/login",this::searchPost);
-//        registerGet("/delete",this::deleteGet);
-//        registerPost("/delete",this::deletePost);
-//        registerGet("/input",this::inputGet);
-//        registerPost("/input",this::inputPost);
-//        registerGet("/update",this::updateGet);
-//        registerPost("/update",this::updatePost);
+        registerGet("/login",this::loginGet);
+        registerPost("/login",this::loginPost);
         registerGet("/registration",this::registrationGet);
         registerPost("/registration",this::registrationPost);
+    }
+
+    private void userHandler(HttpExchange exchange) {
+        renderTemplate(exchange, "user.html", getUserDataModel());
+    }
+    private Object getUserDataModel() {
+        return new SingleUserDataModel(userProfile);
     }
 
     private static Configuration initFreeMarker() {
@@ -64,6 +67,37 @@ public class Server extends BasicServer {
             return cfg;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private void loginGet(HttpExchange exchange) {
+        Path path = makeFilePath("login.html");
+        sendFile(exchange, path, ContentType.TEXT_HTML);
+    }
+    private void loginPost(HttpExchange exchange){
+        try{
+            String raw = getBody(exchange);
+            List<Optional<String>> parsed = Utils.parseInputEncoded(raw,"&");
+            List<String> stats = new ArrayList<>();
+            for(int i = 0; i< parsed.size();i++){
+                stats.add(parsed.get(i).toString().substring(parsed.get(i).toString().indexOf("=")+1, parsed.get(i).toString().indexOf("]")));
+            }
+            List<User> users = FileService.readUserFile();
+            boolean contains = false;
+            for (User user : users) {
+                if (user.getEmail() != null && user.getPassword() != null){
+                    if (user.getEmail().equals(stats.get(0)) && user.getPassword().equals(stats.get(1))) {
+                        contains = true;
+                        userProfile = user;
+                    }
+                }
+            }
+            if (!contains){
+                redirect303(exchange,"/failed2");
+            }else {
+                redirect303(exchange,"/success2");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     private void registrationGet(HttpExchange exchange) {
@@ -101,29 +135,27 @@ public class Server extends BasicServer {
     private void freemarkerSampleHandler(HttpExchange exchange) {
         renderTemplate(exchange, "sample.html", getSampleDataModel());
     }
-    private void booksHandler(HttpExchange exchange) throws SQLException {
+    private void booksHandler(HttpExchange exchange) {
         renderTemplate(exchange, "books.html", getBooksDataModel());
     }
-
-    private void bookHandler(HttpExchange exchange) throws SQLException {
-        renderTemplate(exchange, "book.html", getBookDataModel());
+    private void successLoginHandler(HttpExchange exchange) {
+        renderTemplate(exchange, "success2.html", getUsersDataModel());
     }
+    private void failedLoginHandler(HttpExchange exchange) {
+        renderTemplate(exchange, "failed2.html", getUsersDataModel());
+    }
+
     private void successHandler(HttpExchange exchange) throws SQLException {
-        renderTemplate(exchange, "success.html", getUserDataModel());
+        renderTemplate(exchange, "success.html", getUsersDataModel());
     }
     private void failedHandler(HttpExchange exchange) throws SQLException {
-        renderTemplate(exchange, "failed.html", getUserDataModel());
+        renderTemplate(exchange, "failed.html", getUsersDataModel());
     }
-    private void userHandler(HttpExchange exchange) throws SQLException {
-        renderTemplate(exchange, "user.html", getUserDataModel());
+    private void usersHandler(HttpExchange exchange) throws SQLException {
+        renderTemplate(exchange, "users.html", getUsersDataModel());
     }
     private void accountsHandler(HttpExchange exchange) throws SQLException {
-        renderTemplate(exchange, "accounts.html", getUserDataModel());
-    }
-
-
-    private Object getBookDataModel() {
-        return new SingleBookDataModel(bookSearch);
+        renderTemplate(exchange, "accounts.html", getUsersDataModel());
     }
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
@@ -140,15 +172,13 @@ public class Server extends BasicServer {
         e.printStackTrace();
     }
 }
-
     private SampleDataModel getSampleDataModel() {
         return new SampleDataModel();
     }
-
-    private BookDataModel getBooksDataModel() throws SQLException {
+    private BookDataModel getBooksDataModel(){
         return new BookDataModel();
     }
-    private UserDataModel getUserDataModel() throws SQLException {
+    private UserDataModel getUsersDataModel(){
         return new UserDataModel();
     }
 

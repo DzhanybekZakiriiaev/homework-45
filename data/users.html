@@ -29,20 +29,24 @@
   <tr>
     <th scope="col">Name</th>
     <th scope="col">Surname</th>
-    <th scope="col">Email</th>
+    <th scope="col">Book</th>
+    <th scope="col">Date of Start</th>
+    <th scope="col">Date of End</th>
   </tr>
   </thead>
   <tbody>
   <#list users as user>
-  <#if user.book == "">
+  <#if user.book != "">
   <tr>
     <td>${user.name}</td>
     <td>${user.surname}</td>
-    <td>${user.email}</td>
+    <td>${user.book}</td>
+    <td>${user.date_start}</td>
+    <td>${user.date_end}</td>
   </tr>
   </#if>
-  </#list>
-  </tbody>
+</#list>
+</tbody>
 </table>
 </body>
 </html>
