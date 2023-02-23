@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Bilbo",
+    "surname": "Beggins",
+    "book": "UPDATEDNEW",
+    "date_start": "2015-07-25",
+    "date_end": "IN USE"
+  },
+  {
+    "name": "Peter",
+    "surname": "Griffin",
+    "book": "HHHHH",
+    "date_start": "2015-08-25",
+    "date_end": "2016-07-25"
+  },
+  {
+    "name": "Dcho",
+    "surname": "Lokin",
+    "book": "HHHHH",
+    "date_start": "2015-03-25",
+    "date_end": "IN USE"
+  },
+  {
+    "name": "Dcho",
+    "surname": "Lokin",
+    "book": "hjvgefeuf",
+    "date_start": "2018-07-25",
+    "date_end": "IN USE"
+  },
+  {
+    "name": "Bilbo",
+    "surname": "Beggins",
+    "book": "HHHHH",
+    "date_start": "2011-07-25",
+    "date_end": "2012-07-25"
+  },
+  {
+    "name": "Dzhanybek",
+    "surname": "Zakiriiaev",
+    "book": "",
+    "date_start": "",
+    "date_end": "",
+    "password": "PASSWORD",
+    "email": "dzhanybek.zakiriiaev@gmail.com"
+  }
+]
