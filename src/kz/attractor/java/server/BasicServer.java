@@ -154,6 +154,8 @@ public abstract class BasicServer {
         catch (SQLException e)
         {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

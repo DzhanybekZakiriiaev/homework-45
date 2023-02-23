@@ -10,9 +10,13 @@ import kz.attractor.java.server.ContentType;
 import kz.attractor.java.server.ResponseCodes;
 import kz.attractor.java.utils.Utils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,7 +36,10 @@ public class Server extends BasicServer {
         registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
         registerGet("/book", this::bookHandler);
+        registerGet("/failed", this::failedHandler);
+        registerGet("/success", this::successHandler);
         registerGet("/user", this::userHandler);
+        registerGet("/accounts", this::accountsHandler);
 //        registerGet("/login",this::searchGet);
 //        registerPost("/login",this::searchPost);
 //        registerGet("/delete",this::deleteGet);
@@ -41,8 +48,8 @@ public class Server extends BasicServer {
 //        registerPost("/input",this::inputPost);
 //        registerGet("/update",this::updateGet);
 //        registerPost("/update",this::updatePost);
-        registerGet("/register",this::registerGet);
-        registerPost("/register",this::registerPost);
+        registerGet("/registration",this::registrationGet);
+        registerPost("/registration",this::registrationPost);
     }
 
     private static Configuration initFreeMarker() {
@@ -59,19 +66,36 @@ public class Server extends BasicServer {
             throw new RuntimeException(e);
         }
     }
-    private void registerGet(HttpExchange exchange) {
-        Path path = makeFilePath("register.html");
+    private void registrationGet(HttpExchange exchange) {
+        Path path = makeFilePath("registration.html");
         sendFile(exchange, path, ContentType.TEXT_HTML);
     }
-    private void registerPost(HttpExchange exchange) throws SQLException {
-        String raw = getBody(exchange);
-        List<Optional<String>> parsed = Utils.parseInputEncoded(raw,"&");
-        List<String> stats = new ArrayList<>();
-        for(int i = 0; i< parsed.size();i++){
-            stats.add(parsed.get(i).toString().substring(parsed.get(i).toString().indexOf("=")+1, parsed.get(i).toString().indexOf("]")));
-        }
-        FileService.addUser(stats);
-        redirect303(exchange,"/user");
+    private void registrationPost(HttpExchange exchange){
+      try{
+          String raw = getBody(exchange);
+          List<Optional<String>> parsed = Utils.parseInputEncoded(raw,"&");
+          List<String> stats = new ArrayList<>();
+          for(int i = 0; i< parsed.size();i++){
+              stats.add(parsed.get(i).toString().substring(parsed.get(i).toString().indexOf("=")+1, parsed.get(i).toString().indexOf("]")));
+          }
+          List<User> users = FileService.readUserFile();
+          boolean contains = false;
+          for (User user : users) {
+             if (user.getEmail() != null){
+                 if (user.getEmail().equals(stats.get(2))) {
+                     contains = true;
+                 }
+             }
+          }
+          if (contains){
+              redirect303(exchange,"/failed");
+          }else {
+              FileService.addUser(stats);
+              redirect303(exchange,"/success");
+          }
+      }catch (Exception e){
+          e.printStackTrace();
+      }
     }
 
     private void freemarkerSampleHandler(HttpExchange exchange) {
@@ -84,9 +108,19 @@ public class Server extends BasicServer {
     private void bookHandler(HttpExchange exchange) throws SQLException {
         renderTemplate(exchange, "book.html", getBookDataModel());
     }
+    private void successHandler(HttpExchange exchange) throws SQLException {
+        renderTemplate(exchange, "success.html", getUserDataModel());
+    }
+    private void failedHandler(HttpExchange exchange) throws SQLException {
+        renderTemplate(exchange, "failed.html", getUserDataModel());
+    }
     private void userHandler(HttpExchange exchange) throws SQLException {
         renderTemplate(exchange, "user.html", getUserDataModel());
     }
+    private void accountsHandler(HttpExchange exchange) throws SQLException {
+        renderTemplate(exchange, "accounts.html", getUserDataModel());
+    }
+
 
     private Object getBookDataModel() {
         return new SingleBookDataModel(bookSearch);
@@ -174,20 +208,20 @@ public class Server extends BasicServer {
 //        BaseService.getAllBooks();
 //        redirect303(exchange,"/books");
 //    }
-    private void updateGet(HttpExchange exchange) {
-        Path path = makeFilePath("update.html");
-        sendFile(exchange, path, ContentType.TEXT_HTML);
-    }
-    private void inputGet(HttpExchange exchange) {
-        Path path = makeFilePath("input.html");
-        sendFile(exchange, path, ContentType.TEXT_HTML);
-    }
-    private void searchGet(HttpExchange exchange) {
-        Path path = makeFilePath("login.html");
-        sendFile(exchange, path, ContentType.TEXT_HTML);
-    }
-    private void deleteGet(HttpExchange exchange) {
-        Path path = makeFilePath("delete.html");
-        sendFile(exchange, path, ContentType.TEXT_HTML);
-    }
+//    private void updateGet(HttpExchange exchange) {
+//        Path path = makeFilePath("update.html");
+//        sendFile(exchange, path, ContentType.TEXT_HTML);
+//    }
+//    private void inputGet(HttpExchange exchange) {
+//        Path path = makeFilePath("input.html");
+//        sendFile(exchange, path, ContentType.TEXT_HTML);
+//    }
+//    private void searchGet(HttpExchange exchange) {
+//        Path path = makeFilePath("login.html");
+//        sendFile(exchange, path, ContentType.TEXT_HTML);
+//    }
+//    private void deleteGet(HttpExchange exchange) {
+//        Path path = makeFilePath("delete.html");
+//        sendFile(exchange, path, ContentType.TEXT_HTML);
+//    }
 }

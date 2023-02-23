@@ -36,13 +36,15 @@
     </thead>
     <tbody>
     <#list users as user>
-    <tr>
-        <td>${user.name}</td>
-        <td>${user.surname}</td>
-        <td>${user.book}</td>
-        <td>${user.date_start}</td>
-        <td>${user.date_end}</td>
-    </tr>
+    <#if user.book != "">
+        <tr>
+            <td>${user.name}</td>
+            <td>${user.surname}</td>
+            <td>${user.book}</td>
+            <td>${user.date_start}</td>
+            <td>${user.date_end}</td>
+            </tr>
+    </#if>
     </#list>
     </tbody>
 </table>

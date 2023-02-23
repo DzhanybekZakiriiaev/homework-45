@@ -9,48 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f773420-89a0-45eb-b583-baeec2116a30" name="Default Changelist" comment="finished">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AttractorHttpServer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/base/Books.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/base/Users.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/base/bookbase.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/bg/bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/book.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/books.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/css/forms.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/css/freemarker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/images/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/input.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/user.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/homework-45.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/Book.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/BookDataModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/FileService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/SampleDataModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/SingleBookDataModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/UserDataModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/server/BasicServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/server/ContentType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/server/ResponseCodes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/server/RouteHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kz/attractor/java/utils/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/freemarker.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/gson-2.8.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/mysql-connector-j-8.0.32.jar" afterDir="false" />
+    <list default="true" id="1f773420-89a0-45eb-b583-baeec2116a30" name="Default Changelist" comment="started new project">
+      <change afterPath="$PROJECT_DIR$/data/accounts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/failed.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/registration.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/success.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/Users.json" beforeDir="false" afterPath="$PROJECT_DIR$/base/Users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/data/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/UserDataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kz/attractor/java/lesson44/UserDataModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/kz/attractor/java/server/BasicServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kz/attractor/java/server/BasicServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/kz/attractor/java/server/RouteHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kz/attractor/java/server/RouteHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676893753390</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="started new project">
+      <created>1677137789194</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677137789194</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -197,6 +175,7 @@
     <MESSAGE value="almost fixed git" />
     <MESSAGE value="upgraded database" />
     <MESSAGE value="finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished" />
+    <MESSAGE value="started new project" />
+    <option name="LAST_COMMIT_MESSAGE" value="started new project" />
   </component>
 </project>
